@@ -4,7 +4,6 @@ import "./App.css";
 const App = () => {
   const [showMain, setShowMain] = useState(false);
   const [playAudio, setPlayAudio] = useState(false);
-  const [showStartMenu, setShowStartMenu] = useState(true);
   const [showCerts, setShowCerts] = useState(false);
 
   const handleContinue = () => {
@@ -20,21 +19,21 @@ const App = () => {
   }, [playAudio]);
 
   const pinnedApps = [
-    { icon: "/icons/edge.jpg", name: "Edge" },
+    { icon: "/icons/edge.jpg", name: "Edge", link: "/mock_pages/google.png" },
     { icon: "/icons/mail.png", name: "Mail" },
     { icon: "/icons/calendar.webp", name: "Calendar" },
-    { icon: "/icons/store.png", name: "Microsoft Store" },
-    { icon: "/icons/photos.png", name: "Photos" },
-    { icon: "/icons/settings.png", name: "Settings" },
+    { icon: "/icons/store.png", name: "Microsoft Store", link: "/mock_pages/store.jpg" },
+    { icon: "/icons/photos.png", name: "Photos", link: "/family_photo.jpg" },
+    { icon: "/icons/settings.png", name: "Settings", link: "/mock_pages/katz.gif" },
     { icon: "/icons/adobe.jpg", name: "Adobe Creative" },
-    { icon: "/icons/solitaire.jpeg", name: "Solitaire" },
-    { icon: "/icons/spotify.png", name: "Spotify" },
-    { icon: "/icons/disney.jpg", name: "Disney+" },
+    { icon: "/icons/solitaire.jpeg", name: "Solitaire", link: "/mock_pages/solitaire.jpg" },
+    { icon: "/icons/spotify.png", name: "Spotify", link: "/mock_pages/spotify.jpg" },
+    { icon: "/icons/disney.jpg", name: "Disney+", link: "/mock_pages/disney.webp" },
     { icon: "/icons/xbox.jpg", name: "Xbox" },
-    { icon: "/icons/prime.png", name: "Prime Video" },
-    { icon: "/icons/instagram.jpg", name: "Instagram" },
+    { icon: "/icons/prime.png", name: "Prime Video", link: "/mock_pages/prime_video.png" },
+    { icon: "/icons/instagram.jpg", name: "Instagram", link: "/mock_pages/instagram.jpg" },
     { icon: "/icons/tiktok.jpg", name: "TikTok" },
-    { icon: "/icons/facebook.png", name: "Facebook" },
+    { icon: "/icons/facebook.png", name: "Facebook", link: "/mock_pages/facebook.png" },
     { icon: "/icons/calculator.jpg", name: "Calculator" },
   ];
 
@@ -81,7 +80,6 @@ const App = () => {
           alt="Loading"
           style={{ marginBottom: "20px" }}
         />
-        <h1 style={{ color: "white", fontSize: "32px", margin: 0 }}>Windows</h1>
         <button
           onClick={handleContinue}
           style={{
@@ -89,6 +87,10 @@ const App = () => {
             padding: "12px 20px",
             fontSize: "16px",
             cursor: "pointer",
+            color: "white",
+            backgroundColor: "#0078D4",
+            border: "none",
+            borderRadius: "4px",
           }}
         >
           Tap to Continue
@@ -108,115 +110,113 @@ const App = () => {
         overflow: "hidden",
       }}
     >
-      {showStartMenu && (
+      <div
+        style={{
+          background: "rgba(0, 0, 0, 0.85)",
+          width: "480px",
+          margin: "50px auto",
+          borderRadius: "12px",
+          padding: "20px",
+        }}
+      >
+        <h3 style={{ margin: "0 0 10px 0" }}>Pinned</h3>
         <div
           style={{
-            background: "rgba(0, 0, 0, 0.85)",
-            width: "450px",
-            margin: "50px auto",
-            borderRadius: "12px",
-            padding: "20px",
+            display: "grid",
+            gridTemplateColumns: "repeat(6, 1fr)",
+            gap: "15px",
+            justifyItems: "center",
           }}
         >
-          <h4 style={{ margin: "0 0 10px 0" }}>Pinned</h4>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 1fr)",
-              gap: "15px",
-              justifyItems: "center",
-            }}
-          >
-            {pinnedApps.map((app, index) => (
-              <div key={index} style={{ textAlign: "center" }}>
-                <img
-                  src={process.env.PUBLIC_URL + app.icon}
-                  alt={app.name}
-                  style={{ width: "40px", height: "40px" }}
-                />
-                <div style={{ fontSize: "10px", marginTop: "4px" }}>{app.name}</div>
-              </div>
-            ))}
-          </div>
+          {pinnedApps.map((app, index) => (
+            <div
+              key={index}
+              onClick={() => {
+                if (app.link) {
+                  window.open(process.env.PUBLIC_URL + app.link, "_blank");
+                }
+              }}
+              style={{
+                cursor: app.link ? "pointer" : "default",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src={process.env.PUBLIC_URL + app.icon}
+                alt={app.name}
+                style={{ width: "45px", height: "45px" }}
+              />
+              <div style={{ fontSize: "10px" }}>{app.name}</div>
+            </div>
+          ))}
+        </div>
 
-          <h4 style={{ marginTop: "20px", marginBottom: "5px" }}>Recommended</h4>
-          <div
+        <h4 style={{ marginTop: "20px", marginBottom: "5px" }}>Recommended</h4>
+        {recommended.map((item, idx) => (
+          <a
+            key={idx}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            }}
-          >
-            {recommended.map((item, idx) => (
-              <a
-                key={idx}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  background: "rgba(255, 255, 255, 0.1)",
-                  borderRadius: "6px",
-                  padding: "8px",
-                  textDecoration: "none",
-                  color: "white",
-                  gap: "8px",
-                }}
-              >
-                <img
-                  src={process.env.PUBLIC_URL + "/icons/document.png"}
-                  alt="doc"
-                  style={{ width: "24px" }}
-                />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: "12px", fontWeight: "bold" }}>{item.title}</div>
-                  <div style={{ fontSize: "10px", color: "#ccc" }}>{item.date}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-
-          <div
-            style={{
-              marginTop: "15px",
-              borderTop: "1px solid gray",
-              paddingTop: "10px",
+              color: "white",
+              textDecoration: "none",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              padding: "5px 0",
             }}
           >
-            <div>Cyristal N. Joseph</div>
-            <div style={{ display: "flex", gap: "8px" }}>
-              <img
-                src={process.env.PUBLIC_URL + "/icons/user.png"}
-                alt="user"
-                style={{ width: "20px", cursor: "pointer" }}
-                onClick={() => window.open(process.env.PUBLIC_URL + "/about.pdf")}
-              />
-              <img
-                src={process.env.PUBLIC_URL + "/icons/document.png"}
-                alt="document"
-                style={{ width: "20px", cursor: "pointer" }}
-                onClick={() => window.open(process.env.PUBLIC_URL + "/resume.pdf")}
-              />
-              <img
-                src={process.env.PUBLIC_URL + "/icons/folder.png"}
-                alt="folder"
-                style={{ width: "20px", cursor: "pointer" }}
-                onClick={() => setShowCerts(true)}
-              />
-              <img
-                src={process.env.PUBLIC_URL + "/icons/settings.png"}
-                alt="settings"
-                style={{ width: "20px", cursor: "pointer" }}
-                onClick={() => window.open(process.env.PUBLIC_URL + "/return_the_slab.gif")}
-              />
+            <img
+              src={process.env.PUBLIC_URL + "/icons/document.png"}
+              alt="doc"
+              style={{ width: "20px", marginRight: "8px" }}
+            />
+            <div>
+              <div>{item.title}</div>
+              <div style={{ fontSize: "10px", color: "#ccc" }}>{item.date}</div>
             </div>
+          </a>
+        ))}
+
+        <div
+          style={{
+            marginTop: "20px",
+            borderTop: "1px solid gray",
+            paddingTop: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>Cyristal N. Joseph</div>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <img
+              src={process.env.PUBLIC_URL + "/icons/user.png"}
+              alt="user"
+              style={{ width: "20px", cursor: "pointer" }}
+              onClick={() => window.open(process.env.PUBLIC_URL + "/about.pdf")}
+            />
+            <img
+              src={process.env.PUBLIC_URL + "/icons/document.png"}
+              alt="document"
+              style={{ width: "20px", cursor: "pointer" }}
+              onClick={() => window.open(process.env.PUBLIC_URL + "/resume.pdf")}
+            />
+            <img
+              src={process.env.PUBLIC_URL + "/icons/folder.png"}
+              alt="folder"
+              style={{ width: "20px", cursor: "pointer" }}
+              onClick={() => setShowCerts(true)}
+            />
+            <img
+              src={process.env.PUBLIC_URL + "/icons/settings.png"}
+              alt="settings"
+              style={{ width: "20px", cursor: "pointer" }}
+              onClick={() => window.open(process.env.PUBLIC_URL + "/return_the_slab.gif")}
+            />
           </div>
         </div>
-      )}
+      </div>
 
       {showCerts && (
         <div
@@ -265,43 +265,6 @@ const App = () => {
           </div>
         </div>
       )}
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: "0",
-          width: "100%",
-          height: "48px",
-          background: "rgba(0, 0, 0, 0.7)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "10px",
-        }}
-      >
-        <img
-          src={process.env.PUBLIC_URL + "/icons/start.webp"}
-          alt="Start"
-          style={{ height: "28px", cursor: "pointer" }}
-          onClick={() => setShowStartMenu(!showStartMenu)}
-        />
-        <img
-          src={process.env.PUBLIC_URL + "/icons/folder.png"}
-          alt="Folder"
-          style={{ height: "28px", cursor: "pointer" }}
-        />
-        <img
-          src={process.env.PUBLIC_URL + "/icons/edge.jpg"}
-          alt="Edge"
-          style={{ height: "28px", cursor: "pointer" }}
-        />
-        <img
-          src={process.env.PUBLIC_URL + "/icons/paint.jpg"}
-          alt="Paint"
-          style={{ height: "28px", cursor: "pointer" }}
-          onClick={() => window.open(process.env.PUBLIC_URL + "/space_chicken.jpg")}
-        />
-      </div>
     </div>
   );
 };
