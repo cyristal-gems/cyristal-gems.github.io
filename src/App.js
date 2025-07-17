@@ -4,6 +4,7 @@ import "./App.css";
 const App = () => {
   const [showMain, setShowMain] = useState(false);
   const [playAudio, setPlayAudio] = useState(false);
+  const [showStartMenu, setShowStartMenu] = useState(true);
   const [showCerts, setShowCerts] = useState(false);
 
   const handleContinue = () => {
@@ -23,8 +24,8 @@ const App = () => {
     { icon: "/icons/mail.png", name: "Mail" },
     { icon: "/icons/calendar.webp", name: "Calendar" },
     { icon: "/icons/store.png", name: "Microsoft Store", link: "/mock_pages/store.jpg" },
-    { icon: "/icons/photos.png", name: "Photos", link: "/family_photo.jpg" },
-    { icon: "/icons/settings.png", name: "Settings", link: "/mock_pages/katz.gif" },
+    { icon: "/icons/photos.png", name: "Photos", action: () => window.open(process.env.PUBLIC_URL + "/family_photo.jpg") },
+    { icon: "/icons/settings.png", name: "Settings", action: () => window.open(process.env.PUBLIC_URL + "/mock_pages/katz.gif") },
     { icon: "/icons/adobe.jpg", name: "Adobe Creative" },
     { icon: "/icons/solitaire.jpeg", name: "Solitaire", link: "/mock_pages/solitaire.jpg" },
     { icon: "/icons/spotify.png", name: "Spotify", link: "/mock_pages/spotify.jpg" },
@@ -80,6 +81,7 @@ const App = () => {
           alt="Loading"
           style={{ marginBottom: "20px" }}
         />
+        <h1 style={{ color: "white", fontSize: "32px", margin: 0 }}>Windows</h1>
         <button
           onClick={handleContinue}
           style={{
@@ -87,10 +89,6 @@ const App = () => {
             padding: "12px 20px",
             fontSize: "16px",
             cursor: "pointer",
-            color: "white",
-            backgroundColor: "#0078D4",
-            border: "none",
-            borderRadius: "4px",
           }}
         >
           Tap to Continue
@@ -110,113 +108,116 @@ const App = () => {
         overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          background: "rgba(0, 0, 0, 0.85)",
-          width: "480px",
-          margin: "50px auto",
-          borderRadius: "12px",
-          padding: "20px",
-        }}
-      >
-        <h3 style={{ margin: "0 0 10px 0" }}>Pinned</h3>
+      {showStartMenu && (
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "15px",
-            justifyItems: "center",
+            background: "rgba(0, 0, 0, 0.85)",
+            width: "420px",
+            margin: "50px auto",
+            borderRadius: "12px",
+            padding: "20px",
           }}
         >
-          {pinnedApps.map((app, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                if (app.link) {
-                  window.open(process.env.PUBLIC_URL + app.link, "_blank");
-                }
-              }}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "15px",
+              justifyItems: "center",
+            }}
+          >
+            {pinnedApps.map((app, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  if (app.link) {
+                    window.open(process.env.PUBLIC_URL + app.link, "_blank");
+                  } else if (app.action) {
+                    app.action();
+                  }
+                }}
+                style={{
+                  cursor: app.link || app.action ? "pointer" : "default",
+                  textAlign: "center",
+                }}
+              >
+                <img
+                  src={process.env.PUBLIC_URL + app.icon}
+                  alt={app.name}
+                  style={{ width: "45px", height: "45px" }}
+                />
+                <div style={{ fontSize: "10px" }}>{app.name}</div>
+              </div>
+            ))}
+          </div>
+
+          <h4 style={{ marginTop: "20px", marginBottom: "5px" }}>Recommended</h4>
+          {recommended.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
-                cursor: app.link ? "pointer" : "default",
-                textAlign: "center",
+                color: "white",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                padding: "5px 0",
               }}
             >
               <img
-                src={process.env.PUBLIC_URL + app.icon}
-                alt={app.name}
-                style={{ width: "45px", height: "45px" }}
+                src={process.env.PUBLIC_URL + "/icons/document.png"}
+                alt="doc"
+                style={{ width: "20px", marginRight: "8px" }}
               />
-              <div style={{ fontSize: "10px" }}>{app.name}</div>
-            </div>
+              <div>
+                <div>{item.title}</div>
+                <div style={{ fontSize: "10px", color: "#ccc" }}>{item.date}</div>
+              </div>
+            </a>
           ))}
-        </div>
 
-        <h4 style={{ marginTop: "20px", marginBottom: "5px" }}>Recommended</h4>
-        {recommended.map((item, idx) => (
-          <a
-            key={idx}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             style={{
-              color: "white",
-              textDecoration: "none",
+              marginTop: "20px",
+              borderTop: "1px solid gray",
+              paddingTop: "10px",
               display: "flex",
               alignItems: "center",
-              padding: "5px 0",
+              justifyContent: "space-between",
             }}
           >
-            <img
-              src={process.env.PUBLIC_URL + "/icons/document.png"}
-              alt="doc"
-              style={{ width: "20px", marginRight: "8px" }}
-            />
-            <div>
-              <div>{item.title}</div>
-              <div style={{ fontSize: "10px", color: "#ccc" }}>{item.date}</div>
+            <div>Cyristal N. Joseph</div>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <img
+                src={process.env.PUBLIC_URL + "/icons/user.png"}
+                alt="user"
+                style={{ width: "20px", cursor: "pointer" }}
+                onClick={() => window.open(process.env.PUBLIC_URL + "/about.pdf")}
+              />
+              <img
+                src={process.env.PUBLIC_URL + "/icons/document.png"}
+                alt="document"
+                style={{ width: "20px", cursor: "pointer" }}
+                onClick={() => window.open(process.env.PUBLIC_URL + "/resume.pdf")}
+              />
+              <img
+                src={process.env.PUBLIC_URL + "/icons/folder.png"}
+                alt="folder"
+                style={{ width: "20px", cursor: "pointer" }}
+                onClick={() => setShowCerts(true)}
+              />
+              <img
+                src={process.env.PUBLIC_URL + "/icons/settings.png"}
+                alt="settings"
+                style={{ width: "20px", cursor: "pointer" }}
+                onClick={() => window.open(process.env.PUBLIC_URL + "/return_the_slab.gif")}
+              />
             </div>
-          </a>
-        ))}
-
-        <div
-          style={{
-            marginTop: "20px",
-            borderTop: "1px solid gray",
-            paddingTop: "10px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div>Cyristal N. Joseph</div>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <img
-              src={process.env.PUBLIC_URL + "/icons/user.png"}
-              alt="user"
-              style={{ width: "20px", cursor: "pointer" }}
-              onClick={() => window.open(process.env.PUBLIC_URL + "/about.pdf")}
-            />
-            <img
-              src={process.env.PUBLIC_URL + "/icons/document.png"}
-              alt="document"
-              style={{ width: "20px", cursor: "pointer" }}
-              onClick={() => window.open(process.env.PUBLIC_URL + "/resume.pdf")}
-            />
-            <img
-              src={process.env.PUBLIC_URL + "/icons/folder.png"}
-              alt="folder"
-              style={{ width: "20px", cursor: "pointer" }}
-              onClick={() => setShowCerts(true)}
-            />
-            <img
-              src={process.env.PUBLIC_URL + "/icons/settings.png"}
-              alt="settings"
-              style={{ width: "20px", cursor: "pointer" }}
-              onClick={() => window.open(process.env.PUBLIC_URL + "/return_the_slab.gif")}
-            />
           </div>
         </div>
-      </div>
+      )}
 
       {showCerts && (
         <div
@@ -265,6 +266,44 @@ const App = () => {
           </div>
         </div>
       )}
+
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          width: "100%",
+          height: "50px",
+          background: "rgba(0, 0, 0, 0.7)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
+          padding: "0 10px",
+        }}
+      >
+        <img
+          src={process.env.PUBLIC_URL + "/icons/start.webp"}
+          alt="Start"
+          style={{ height: "30px", cursor: "pointer" }}
+          onClick={() => setShowStartMenu(!showStartMenu)}
+        />
+        <img
+          src={process.env.PUBLIC_URL + "/icons/folder.png"}
+          alt="Folder"
+          style={{ height: "30px", cursor: "pointer" }}
+        />
+        <img
+          src={process.env.PUBLIC_URL + "/icons/edge.jpg"}
+          alt="Edge"
+          style={{ height: "30px", cursor: "pointer" }}
+        />
+        <img
+          src={process.env.PUBLIC_URL + "/icons/paint.jpg"}
+          alt="Paint"
+          style={{ height: "30px", cursor: "pointer" }}
+          onClick={() => window.open(process.env.PUBLIC_URL + "/space_chicken.jpg")}
+        />
+      </div>
     </div>
   );
 };

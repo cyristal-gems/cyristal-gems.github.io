@@ -1,97 +1,19 @@
-body, html {
+body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #000;
+  overflow: hidden;
 }
 
-.app {
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.loading-screen {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.continue-btn {
-  background-color: green;
+button {
+  background-color: #0078d4;
   color: white;
-  padding: 15px 30px;
-  font-size: 18px;
   border: none;
-  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-.menu {
-  background: rgba(0,0,0,0.7);
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 400px;
-  margin: auto;
-  color: white;
-}
-
-.icons-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  justify-items: center;
-}
-
-.icons-grid img {
-  width: 40px;
-  height: 40px;
-}
-
-.finds-list {
-  margin-top: 10px;
-}
-
-.find-item {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.find-item img {
-  width: 20px;
-  margin-right: 8px;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.user-info p {
-  margin-right: 10px;
-}
-
-.user-info img {
-  width: 20px;
-  margin: 0 5px;
-}
-
-.taskbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.7);
-  padding: 10px;
-}
-
-.taskbar img {
-  width: 30px;
-  margin: 0 10px;
+button:hover {
+  background-color: #005a9e;
 }
