@@ -1,0 +1,23 @@
+.taskbar {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+}
+
+.start-menu {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 60px; /* sit above the taskbar */
+  left: 20px;
+  z-index: 100;
+}
