@@ -29,7 +29,7 @@ introduction, organized skill categories with custom icons, and a Netflix-style 
 
 ## **🚀 View The Live Portfolio Site Here**
 
-[Technical Portfolio](https://cyristal-gems.github.io)
+[Technical Portfolio](https://cyrisjoseph.dev))
 
 ---
 
