@@ -29,7 +29,7 @@ This portfolio showcases my work across cybersecurity, investigations, privacy, 
 
 ## **🚀 View The Live Portfolio Site Here**
 
-[Technical Portfolio](https://cyrisjoseph.dev)
+[Portfolio](https://cyrisjoseph.dev)
 
 ---
 
