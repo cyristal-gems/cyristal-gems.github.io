@@ -614,6 +614,14 @@ main section[id] {
   color: var(--electric-magenta);
 }
 
+.opportunity-modal__metric:nth-child(4) {
+  border-left-color: var(--electric-blue);
+}
+
+.opportunity-modal__metric:nth-child(4) svg {
+  color: var(--electric-blue);
+}
+
 .opportunity-modal__metric span {
   display: inline-flex;
   align-items: center;
