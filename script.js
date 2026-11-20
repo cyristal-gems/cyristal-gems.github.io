@@ -16,8 +16,6 @@ const opportunityCloseButtons = Array.from(document.querySelectorAll("[data-oppo
 let projectCards = Array.from(document.querySelectorAll(".project-card"));
 let lastOpportunityFocus = null;
 
-document.title = "Cyristal N. Joseph | Portfolio";
-
 const focusAreas = [
   "Cyber Defense + Incident Response",
   "Risk Governance + Assurance",
