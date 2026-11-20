@@ -19,11 +19,11 @@ This portfolio showcases my work across cybersecurity, investigations, privacy, 
 
 ## **🛠️ Tech Stack**
 
-- **HTML5** – Provides the structural foundation using semantic, accessible markup.  
-- **CSS3** – Powers styling, responsive design, animations, and layout logic.  
-- **JavaScript** – Handles interactivity, card flipping, transitions, and dynamic UI behavior.  
-- **Flexbox & CSS Grid** – Creates modern, scalable layout structures across all screen sizes.  
-- **Custom Assets (GIFs, Icons)** – Adds visual clarity and supports a polished, professional interface.  
+- **HTML5** – Organizes the portfolio into clear sections for my background, experience, skills, certifications, projects, publications, and contact details, using headings, images, and links that help visitors find their way around.
+- **CSS3** – Creates the portfolio’s colors, typography, spacing, animated effects, and card designs while adjusting the layout so the content remains readable on phones, tablets, and desktop screens.
+- **JavaScript** – Makes the portfolio respond to visitors through the animated introduction, rotating text, flip cards, project carousel controls, and certification filters that help people explore my work.
+- **Flexbox & CSS Grid** – Arrange cards, buttons, and section content into rows and columns that can resize or stack as the available screen space changes.
+- **Custom Assets (GIFs, Icons)** – Give projects animated previews and add recognizable images and symbols to help visitors identify organizations, skills, and contact options throughout the portfolio.
 
 ---
 
