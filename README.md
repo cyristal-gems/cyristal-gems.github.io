@@ -6,13 +6,13 @@ This portfolio showcases my work across cybersecurity, investigations, privacy, 
 
 ## **✨ Key Features**
 
-- **Animated Intro:** A smooth greeting animation that leads into the main portfolio.
-- **Skills With Icons:** Clear skill categories presented with polished icon-based skill pills.
-- **Publications & Research:** A dedicated section showcasing original writing, featured publications, and ongoing work exploring topics of personal and professional interest.
-- **Interactive Project Cards:** Each project includes a GIF preview on the front and flips to reveal the summary and links.
-- **Scrolling Project Carousel:** A horizontal, Netflix-style animation that displays selected projects.
-- **Experience & Certifications:** Clean sections highlighting professional experience and verified certifications.
-- **Fully Responsive Layout:** The design adapts across desktops, tablets, and mobile devices.
+- **Animated Intro:** Introduces my name and professional focus with a typed greeting and rotating text.
+- **Organized Skills:** Groups cybersecurity, privacy, legal research, and technical skills into clear categories.
+- **Publications & Research:** Features my independent writing with a direct link to read more on Substack.
+- **Interactive Project Cards:** Pairs GIF previews and technology lists with flip-to-read summaries and project links.
+- **Scrolling Project Carousel:** Combines automatic scrolling with previous-and-next controls to browse selected projects.
+- **Experience & Certifications:** Highlights past organizations, a downloadable resume, and filterable credentials with supporting links.
+- **Responsive Design:** Adapts navigation, cards, and content for phones, tablets, and desktop screens.
 
 ---
 
