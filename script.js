@@ -61,6 +61,10 @@ const rotateFocus = () => {
 };
 
 const rotateCareer = () => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
   let index = 0;
 
   window.setInterval(async () => {
@@ -356,6 +360,13 @@ const runProjectCarousel = () => {
 
 const runIntro = async () => {
   const introText = typewriter.dataset.text;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    typewriter.textContent = introText;
+    intro.classList.add("intro--focus-ready", "intro--tagline-ready");
+    return;
+  }
+
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
 
   typewriter.textContent = "";
@@ -370,8 +381,6 @@ const runIntro = async () => {
   intro.classList.add("intro--tagline-ready");
 
   await wait(950);
-  intro.classList.add("intro--enter-ready");
-  enterSite.disabled = false;
   rotateFocus();
 };
 

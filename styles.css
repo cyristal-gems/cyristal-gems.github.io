@@ -2123,42 +2123,14 @@ main section[id] {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     transition-duration: 0.001ms !important;
-  }
-
-  .experience-track {
-    animation: none;
+    transition-delay: 0ms !important;
   }
 
   .reveal-on-scroll {
-    transition-duration: 680ms !important;
-  }
-
-  .intro__focus,
-  .intro__tagline {
-    transition-duration: 420ms !important;
-  }
-
-  .intro__enter {
-    transition-duration: 440ms !important;
-  }
-
-  .intro__cursor {
-    animation-duration: 900ms !important;
-    animation-iteration-count: infinite !important;
-  }
-
-  body::before,
-  .intro::before {
-    animation-duration: 14s !important;
-    animation-iteration-count: infinite !important;
-  }
-
-  .ticker__track {
-    animation-duration: 34s !important;
-    animation-iteration-count: infinite !important;
+    opacity: 1;
+    transform: none;
   }
 }
 
