@@ -1,3 +1,6 @@
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
 const intro = document.querySelector("#intro");
 const typewriter = document.querySelector("#typewriter");
 const focusCycle = document.querySelector("#focusCycle");
@@ -7,7 +10,6 @@ const year = document.querySelector("#year");
 const projectCarousel = document.querySelector(".project-grid");
 const projectPrev = document.querySelector(".project-control--prev");
 const projectNext = document.querySelector(".project-control--next");
-const resumeLink = document.querySelector("#resumeLink");
 const certFilter = document.querySelector("#certFilter");
 const certCards = Array.from(document.querySelectorAll(".cert-card"));
 const opportunityButton = document.querySelector("#opportunityButton");
@@ -47,21 +49,25 @@ const rotateFocus = () => {
   let index = 0;
 
   const focusTimer = window.setInterval(async () => {
-    if (index >= focusAreas.length - 1) {
+    if (intro.classList.contains("is-hidden") || index >= focusAreas.length - 1) {
       window.clearInterval(focusTimer);
       return;
     }
 
     index += 1;
     focusCycle.classList.add("is-changing");
-    await new Promise((resolve) => window.setTimeout(resolve, 360));
+    await wait(360);
+    if (intro.classList.contains("is-hidden")) {
+      window.clearInterval(focusTimer);
+      return;
+    }
     focusCycle.textContent = focusAreas[index];
     focusCycle.classList.remove("is-changing");
   }, 2800);
 };
 
 const rotateCareer = () => {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (reducedMotion) {
     return;
   }
 
@@ -70,7 +76,7 @@ const rotateCareer = () => {
   window.setInterval(async () => {
     index = (index + 1) % careerPaths.length;
     careerCycle.classList.add("is-changing");
-    await new Promise((resolve) => window.setTimeout(resolve, 360));
+    await wait(360);
     careerCycle.textContent = careerPaths[index];
     careerCycle.classList.remove("is-changing");
   }, 12000);
@@ -154,11 +160,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 const wireProjectCard = (card) => {
-  if (card.dataset.ready === "true") {
-    return;
-  }
-
-  card.dataset.ready = "true";
   card.setAttribute("aria-expanded", "false");
 
   const projectTitle = card.querySelector("h3")?.textContent.trim();
@@ -202,12 +203,11 @@ document.addEventListener("click", (event) => {
 });
 
 const runProjectCarousel = () => {
-  if (!projectCarousel || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (!projectCarousel || reducedMotion) {
     return;
   }
 
   let pauseUntil = 0;
-  let isProjectHovered = false;
   let isProjectVisible = false;
   let lastTime = null;
   let projectAnimationFrame = null;
@@ -215,28 +215,21 @@ const runProjectCarousel = () => {
   let loopPoint = 0;
   const scrollSpeed = 28;
 
-  if (projectCarousel.dataset.loopReady !== "true") {
-    const originalCards = Array.from(projectCarousel.querySelectorAll(".project-card"));
-    originalCards.forEach((card) => {
-      const clone = card.cloneNode(true);
-      clone.classList.add("project-card--clone");
-      clone.dataset.clone = "true";
-      clone.dataset.ready = "false";
-      clone.setAttribute("aria-hidden", "true");
-      clone.tabIndex = -1;
-      clone.querySelectorAll("a, button").forEach((element) => {
-        element.tabIndex = -1;
-      });
-      projectCarousel.appendChild(clone);
+  let firstClone = null;
+  projectCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.tabIndex = -1;
+    clone.querySelectorAll("a, button").forEach((element) => {
+      element.tabIndex = -1;
     });
-
-    projectCarousel.dataset.loopReady = "true";
-    projectCards = Array.from(projectCarousel.querySelectorAll(".project-card"));
-    projectCards.forEach(wireProjectCard);
-  }
+    projectCarousel.appendChild(clone);
+    wireProjectCard(clone);
+    firstClone ??= clone;
+  });
+  projectCards = Array.from(projectCarousel.querySelectorAll(".project-card"));
 
   const updateLoopPoint = () => {
-    const firstClone = projectCarousel.querySelector('.project-card[data-clone="true"]');
     loopPoint = firstClone ? firstClone.offsetLeft : projectCarousel.scrollWidth - projectCarousel.clientWidth;
   };
 
@@ -252,25 +245,8 @@ const runProjectCarousel = () => {
     pauseUntil = Date.now() + 1300;
   };
 
-  const pauseOnProject = () => {
-    isProjectHovered = true;
-  };
-
-  const resumeAfterProject = () => {
-    isProjectHovered = false;
-  };
-
   projectCarousel.addEventListener("pointerdown", pauseBriefly);
   projectCarousel.addEventListener("pointerup", pauseBriefly);
-  projectCarousel.addEventListener("touchstart", pauseBriefly, { passive: true });
-  projectCarousel.addEventListener("touchend", pauseBriefly);
-  projectCarousel.addEventListener("mouseenter", pauseOnProject);
-  projectCarousel.addEventListener("mouseleave", resumeAfterProject);
-
-  projectCards.forEach((card) => {
-    card.addEventListener("mouseenter", pauseOnProject);
-    card.addEventListener("mouseleave", resumeAfterProject);
-  });
 
   updateLoopPoint();
   window.addEventListener("resize", updateLoopPoint);
@@ -301,7 +277,6 @@ const runProjectCarousel = () => {
     }
 
     const isPaused =
-      isProjectHovered ||
       projectCarousel.matches(":hover") ||
       projectCarousel.contains(document.activeElement) ||
       Date.now() < pauseUntil;
@@ -361,42 +336,36 @@ const runProjectCarousel = () => {
 const runIntro = async () => {
   const introText = typewriter.dataset.text;
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (reducedMotion) {
     typewriter.textContent = introText;
     intro.classList.add("intro--focus-ready", "intro--tagline-ready");
     return;
   }
 
-  const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
-
   typewriter.textContent = "";
   for (let index = 0; index < introText.length; index += 1) {
     typewriter.textContent += introText[index];
     await wait(50);
+    if (intro.classList.contains("is-hidden")) {
+      return;
+    }
   }
 
   intro.classList.add("intro--focus-ready");
 
   await wait(650);
+  if (intro.classList.contains("is-hidden")) {
+    return;
+  }
   intro.classList.add("intro--tagline-ready");
 
   await wait(950);
-  rotateFocus();
+  if (!intro.classList.contains("is-hidden")) {
+    rotateFocus();
+  }
 };
 
 enterSite.addEventListener("click", revealPortfolio);
-
-resumeLink?.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  const resumeWindow = window.open(resumeLink.href, "_blank");
-
-  if (resumeWindow) {
-    resumeWindow.opener = null;
-  } else {
-    window.location.href = resumeLink.href;
-  }
-});
 
 const filterCertifications = () => {
   if (!certFilter || !certCards.length) {
@@ -429,6 +398,10 @@ const filterCertifications = () => {
 certFilter?.addEventListener("change", filterCertifications);
 
 const setupScrollReveals = () => {
+  if (reducedMotion) {
+    return;
+  }
+
   const revealGroups = [
     { selector: ".hero__media", reveal: "slide-right" },
     { selector: ".hero__content", reveal: "fade" },
