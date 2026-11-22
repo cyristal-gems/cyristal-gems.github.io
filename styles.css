@@ -1107,6 +1107,7 @@ select:focus-visible,
   max-width: 100%;
   font-size: 0.875rem;
   line-height: 1.6;
+  font-style: italic;
 }
 
 .project-actions {
