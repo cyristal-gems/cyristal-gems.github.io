@@ -286,6 +286,7 @@ select:focus-visible,
 
 .hero {
   position: relative;
+  min-width: 0;
   display: grid;
   grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
   align-items: center;
@@ -297,11 +298,11 @@ select:focus-visible,
 
 .hero::before {
   position: absolute;
-  top: 7%;
+  top: 0;
+  bottom: 0;
   right: calc(50% - 50vw);
   left: calc(50% - 50vw);
   z-index: -1;
-  height: 86%;
   border-block: 1px solid rgba(201, 215, 234, 0.09);
   content: "";
   background: rgba(0, 0, 0, 0.4);
@@ -356,6 +357,7 @@ select:focus-visible,
 
 .hero__content {
   display: grid;
+  min-width: 0;
   max-width: 760px;
   width: 100%;
   margin-top: clamp(18px, 3vh, 34px);
@@ -376,7 +378,11 @@ select:focus-visible,
 }
 
 .career-title {
+  letter-spacing: -0.025em;
   width: 100%;
+  min-width: 0;
+  text-align: left;
+  text-wrap: wrap;
   min-height: 4em;
   margin: 0 0 28px;
   overflow: visible;
@@ -400,7 +406,10 @@ select:focus-visible,
 
 .about-copy {
   display: grid;
-  max-width: 760px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   gap: 14px;
   border: 1px solid var(--glass-line);
   border-left: 1px solid rgba(135, 206, 235, 0.56);
@@ -1916,8 +1925,7 @@ select:focus-visible,
 }
 
 .section__heading h2,
-.contact__content h2,
-.career-title {
+.contact__content h2 {
   letter-spacing: -0.025em;
   text-wrap: balance;
 }
