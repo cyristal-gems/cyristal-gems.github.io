@@ -32,7 +32,7 @@ body {
   background: #000;
   font-family: var(--font-body);
   line-height: 1.6;
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
 }
 
 body.opportunity-dialog-open {
@@ -51,10 +51,13 @@ body::after {
 body::before,
 .intro::before {
   inset: -12%;
-  background: linear-gradient(115deg, transparent 0 34%, rgba(125, 249, 255, 0.025) 40%, rgba(125, 249, 255, 0.09) 47%, transparent 60%);
+  background: 
+    radial-gradient(ellipse at 46% 48%, rgba(125, 249, 255, 0.12), transparent 54%),
+    linear-gradient(115deg, transparent 0 30%, rgba(125, 249, 255, 0.035) 36%, rgba(125, 249, 255, 0.24) 45%, rgba(232, 237, 242, 0.14) 49%, rgba(125, 249, 255, 0.2) 51%, rgba(125, 249, 255, 0.04) 58%, transparent 66%),
+    linear-gradient(65deg, transparent 0 35%, rgba(125, 249, 255, 0.035) 42%, rgba(125, 249, 255, 0.14) 49%, rgba(125, 249, 255, 0.035) 55%, transparent 64%);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 135% 135%;
+  background-size: 140% 140%, 135% 135%, 145% 145%;
   backface-visibility: hidden;
   opacity: 0.86;
   transform: translate3d(-6%, -3%, 0) scale(1.08);
@@ -165,17 +168,13 @@ select:focus-visible,
   border: 1px solid rgba(125, 249, 255, 0.34);
   border-radius: 8px;
   padding: 0 16px;
-  color: var(--ink);
-  background: linear-gradient(135deg, rgba(125, 249, 255, 0.14), rgba(232, 237, 242, 0.01575));
-  font: 600 0.9rem/1 var(--font-heading);
+  font: 600 0.9375rem/1.2 var(--font-heading);
   white-space: nowrap;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .nav__brand:hover {
   transform: translateY(-1px);
-  border-color: rgba(125, 249, 255, 0.38);
-  background: rgba(125, 249, 255, 0.08);
 }
 
 .nav__links {
@@ -270,7 +269,7 @@ select:focus-visible,
   flex: 0 0 auto;
   padding: 11px clamp(24px, 3vw, 42px);
   color: var(--ink);
-  font: 500 clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem)/1.35 var(--font-heading);
+  font: 500 clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem)/1.35 var(--font-heading);
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -306,7 +305,7 @@ select:focus-visible,
   height: 86%;
   border-block: 1px solid rgba(201, 215, 234, 0.09);
   content: "";
-  background: #020202;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .hero__media {
@@ -372,7 +371,7 @@ select:focus-visible,
   margin: 0 12px 16px 0;
   max-width: 100%;
   padding: 11px 16px;
-  font: 600 0.875rem/1.2 var(--font-heading);
+  font: 600 0.9375rem/1.2 var(--font-heading);
   text-align: center;
   white-space: nowrap;
 }
@@ -433,7 +432,7 @@ select:focus-visible,
 .contact__content h2 {
   margin: 0;
   color: var(--ink);
-  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1.08;
 }
 
@@ -441,7 +440,7 @@ select:focus-visible,
 .contact__content p:last-child {
   margin: 16px 0 0;
   color: var(--ink);
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
 }
 
 .section__topline {
@@ -470,25 +469,16 @@ select:focus-visible,
   border: 1px solid var(--glass-line);
   border-radius: 8px;
   padding: 11px 16px;
-  color: var(--ink);
   cursor: pointer;
-  background:
-    linear-gradient(135deg, rgba(232, 237, 242, 0.03675), rgba(232, 237, 242, 0.0105)),
-    var(--glass);
   font-weight: 600;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  font-size: 0.9375rem;
 }
 
 .button:hover {
   transform: translateY(-2px);
   box-shadow: 0 20px 58px rgba(0, 0, 0, 0.28);
-}
-
-.button--primary {
-  border-color: var(--electric-blue);
-  color: var(--ink);
-  background: rgba(125, 249, 255, 0.08);
 }
 
 .opportunity-modal[hidden] {
@@ -538,17 +528,10 @@ select:focus-visible,
   place-items: center;
   border: 1px solid var(--glass-line);
   border-radius: 50%;
-  color: var(--ink);
   cursor: pointer;
-  background: rgba(232, 237, 242, 0.028);
   font-size: 1.45rem;
   font-weight: 600;
   line-height: 1;
-}
-
-.opportunity-modal__close:hover {
-  border-color: rgba(125, 249, 255, 0.5);
-  background: rgba(125, 249, 255, 0.14);
 }
 
 .opportunity-modal__eyebrow {
@@ -620,7 +603,7 @@ select:focus-visible,
   width: 100%;
   max-width: none;
   border-block: 1px solid rgba(201, 215, 234, 0.09);
-  background: #020202;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .experience > * {
@@ -834,7 +817,7 @@ select:focus-visible,
     rgba(13, 13, 13, 0.58);
   box-shadow: 0 18px 52px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(220, 235, 255, 0.08);
   cursor: pointer;
-  font: 600 0.875rem/1.3 var(--font-heading);
+  font: 600 0.9375rem/1.3 var(--font-heading);
 }
 
 .cert-filter option {
@@ -890,19 +873,15 @@ select:focus-visible,
   border: 1px solid rgba(125, 249, 255, 0.36);
   border-radius: 8px;
   padding: 8px 12px;
-  color: var(--ink);
-  background:
-    linear-gradient(135deg, rgba(125, 249, 255, 0.16), rgba(232, 237, 242, 0.0105)),
-    rgba(125, 249, 255, 0.08);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
 .cert-card p {
   margin: 18px 0 0;
   color: var(--ink);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
 }
 
 .project-rail {
@@ -957,10 +936,6 @@ select:focus-visible,
   place-items: center;
   border: 1px solid var(--glass-line);
   border-radius: 8px;
-  color: var(--ink);
-  background:
-    linear-gradient(135deg, rgba(232, 237, 242, 0.042), rgba(232, 237, 242, 0.007)),
-    rgba(3, 3, 3, 0.58);
   box-shadow: 0 16px 52px rgba(0, 0, 0, 0.36);
   cursor: pointer;
   font: 600 clamp(2rem, 4vw, 3.4rem)/1 var(--font-heading);
@@ -970,10 +945,6 @@ select:focus-visible,
 
 .project-control:hover {
   transform: translateY(-50%) scale(1.03);
-  border-color: rgba(125, 249, 255, 0.55);
-  background:
-    linear-gradient(135deg, rgba(232, 237, 242, 0.0525), rgba(232, 237, 242, 0.01225)),
-    rgba(13, 13, 13, 0.68);
 }
 
 .project-control--prev {
@@ -1079,8 +1050,8 @@ select:focus-visible,
   z-index: 1;
   margin: 12px 0 0;
   color: var(--ink);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
 }
 
 .project-card__front p {
@@ -1107,11 +1078,7 @@ select:focus-visible,
   border: 1px solid rgba(125, 249, 255, 0.36);
   border-radius: 8px;
   padding: 9px 12px;
-  color: var(--ink);
-  background:
-    linear-gradient(135deg, rgba(125, 249, 255, 0.16), rgba(232, 237, 242, 0.0105)),
-    rgba(125, 249, 255, 0.08);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
@@ -1128,7 +1095,7 @@ select:focus-visible,
   z-index: -1;
   border-block: 1px solid rgba(201, 215, 234, 0.09);
   content: "";
-  background: #020202;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .publications__topline {
@@ -1217,7 +1184,7 @@ select:focus-visible,
   max-width: 62ch;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
   font-style: italic;
   line-height: 1.68;
 }
@@ -1247,18 +1214,12 @@ select:focus-visible,
   height: 76px;
   place-items: center;
   border: 1px solid var(--glass-line);
-  background:
-    linear-gradient(135deg, rgba(232, 237, 242, 0.042), transparent 42%),
-    rgba(20, 20, 20, 0.52);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  border-radius: 12px;
 }
 
 .contact__icons a:hover {
   transform: translateY(-4px);
-  border-color: rgba(125, 249, 255, 0.48);
-  background:
-    linear-gradient(135deg, rgba(232, 237, 242, 0.0525), transparent 42%),
-    rgba(28, 28, 28, 0.62);
 }
 
 .contact__icons img {
@@ -1368,7 +1329,7 @@ select:focus-visible,
   justify-self: center;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(1.75rem, 4.5vw, 3.75rem);
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
   line-height: 1.1;
   letter-spacing: -0.035em;
   text-align: center;
@@ -1421,7 +1382,7 @@ select:focus-visible,
   justify-self: center;
   margin: 0 auto;
   color: var(--ink);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.5;
   text-align: center;
 }
@@ -1435,17 +1396,12 @@ select:focus-visible,
   border: 1px solid rgba(125, 249, 255, 0.72);
   border-radius: 2px;
   padding: 14px 22px;
-  color: var(--ink);
-  background: rgba(5, 5, 5, 0.88);
   cursor: pointer;
-  font: 600 0.875rem/1.2 var(--font-heading);
+  font: 600 0.9375rem/1.2 var(--font-heading);
   text-transform: uppercase;
 }
 
 .intro__enter:hover {
-  color: var(--ink);
-  border-color: var(--electric-blue);
-  background: rgba(125, 249, 255, 0.12);
   transform: translateY(-2px);
   box-shadow:
     0 22px 68px rgba(0, 0, 0, 0.54),
@@ -1561,6 +1517,19 @@ select:focus-visible,
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.nav__brand,
+.button,
+.opportunity-modal__close,
+.cert-card__button,
+.project-control,
+.project-actions a,
+.contact__icons a,
+.intro__enter {
+  color: #001014;
+  background: var(--electric-blue);
+  border-color: var(--electric-blue);
 }
 
 @media (max-width: 1080px) {
@@ -1831,7 +1800,7 @@ select:focus-visible,
 
   .career-title {
     min-height: 8.8em;
-    font-size: 1.05rem;
+    font-size: 1.125rem;
   }
 
   .about-copy,
@@ -1975,8 +1944,7 @@ select:focus-visible,
 .skill-group,
 .cert-card,
 .project-card__face,
-.publication-card,
-.contact__icons a {
+.publication-card {
   border-color: rgba(220, 235, 255, 0.16);
   border-radius: 12px;
   background-color: rgba(5, 5, 5, 0.84);
