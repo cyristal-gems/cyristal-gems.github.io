@@ -1216,6 +1216,8 @@ select:focus-visible,
   border: 1px solid var(--glass-line);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
   border-radius: 12px;
+  background: #050505;
+  color: var(--ink);
 }
 
 .contact__icons a:hover {
@@ -1525,7 +1527,6 @@ select:focus-visible,
 .cert-card__button,
 .project-control,
 .project-actions a,
-.contact__icons a,
 .intro__enter {
   color: #001014;
   background: var(--accent);
