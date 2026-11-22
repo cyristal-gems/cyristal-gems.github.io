@@ -17,18 +17,19 @@ const opportunityModal = document.querySelector("#opportunityModal");
 const opportunityCloseButtons = Array.from(document.querySelectorAll("[data-opportunity-close]"));
 let projectCards = Array.from(document.querySelectorAll(".project-card"));
 let lastOpportunityFocus = null;
+let focusTimer = null;
 
 const focusAreas = [
-  "Cyber Defense + Incident Response",
-  "Risk Governance + Assurance",
-  "Privacy Operations + Data Protection",
-  "Threat Intelligence + Legal Strategy",
+  focusCycle.textContent.trim(),
+  "Law & Legal Research",
+  "Investigations & Evidence",
+  "Privacy & Data Governance",
 ];
 
 const careerPaths = [
-  "I work at the intersection of cybersecurity and law—where technical evidence shapes legal risk, and legal obligations shape security strategy.",
-  "I investigate the breach, trace the evidence, and turn technical findings into action that security teams, leaders, and counsel can defend.",
-  "I transform complex privacy and cybersecurity requirements into practical controls that protect data, reduce exposure, and withstand scrutiny.",
+  careerCycle.textContent.trim().replace(/\s+/g, " "),
+  "I follow evidence, question assumptions, and make complex information clearer.",
+  "I consider the human consequences of how information is collected, protected, and used.",
 ];
 
 year.textContent = new Date().getFullYear();
@@ -38,32 +39,33 @@ const revealPortfolio = () => {
     return;
   }
 
+  window.clearInterval(focusTimer);
   document.body.classList.remove("intro-active");
   intro.classList.add("is-hidden");
-  window.setTimeout(() => {
-    intro.setAttribute("aria-hidden", "true");
-  }, 720);
+  document.querySelector("#about-title").focus({ preventScroll: true });
+  intro.setAttribute("aria-hidden", "true");
+  intro.inert = true;
 };
 
 const rotateFocus = () => {
   let index = 0;
 
-  const focusTimer = window.setInterval(async () => {
-    if (intro.classList.contains("is-hidden") || index >= focusAreas.length - 1) {
+  focusTimer = window.setInterval(async () => {
+    if (intro.classList.contains("is-hidden")) {
       window.clearInterval(focusTimer);
       return;
     }
 
-    index += 1;
+    index = (index + 1) % focusAreas.length;
     focusCycle.classList.add("is-changing");
-    await wait(360);
+    await wait(220);
     if (intro.classList.contains("is-hidden")) {
       window.clearInterval(focusTimer);
       return;
     }
     focusCycle.textContent = focusAreas[index];
     focusCycle.classList.remove("is-changing");
-  }, 2800);
+  }, 4000);
 };
 
 const rotateCareer = () => {
@@ -76,7 +78,7 @@ const rotateCareer = () => {
   window.setInterval(async () => {
     index = (index + 1) % careerPaths.length;
     careerCycle.classList.add("is-changing");
-    await wait(360);
+    await wait(220);
     careerCycle.textContent = careerPaths[index];
     careerCycle.classList.remove("is-changing");
   }, 12000);
@@ -203,7 +205,7 @@ document.addEventListener("click", (event) => {
 });
 
 const runProjectCarousel = () => {
-  if (!projectCarousel || reducedMotion) {
+  if (!projectCarousel) {
     return;
   }
 
@@ -216,18 +218,6 @@ const runProjectCarousel = () => {
   const scrollSpeed = 28;
 
   let firstClone = null;
-  projectCards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.tabIndex = -1;
-    clone.querySelectorAll("a, button").forEach((element) => {
-      element.tabIndex = -1;
-    });
-    projectCarousel.appendChild(clone);
-    wireProjectCard(clone);
-    firstClone ??= clone;
-  });
-  projectCards = Array.from(projectCarousel.querySelectorAll(".project-card"));
 
   const updateLoopPoint = () => {
     loopPoint = firstClone ? firstClone.offsetLeft : projectCarousel.scrollWidth - projectCarousel.clientWidth;
@@ -245,28 +235,43 @@ const runProjectCarousel = () => {
     pauseUntil = Date.now() + 1300;
   };
 
-  projectCarousel.addEventListener("pointerdown", pauseBriefly);
-  projectCarousel.addEventListener("pointerup", pauseBriefly);
-
-  updateLoopPoint();
-  window.addEventListener("resize", updateLoopPoint);
-
   const scrollByProject = (direction) => {
     pauseBriefly();
     updateLoopPoint();
 
-    if (direction < 0 && projectCarousel.scrollLeft <= 4 && loopPoint > 0) {
+    if (!reducedMotion && direction < 0 && projectCarousel.scrollLeft <= 4 && loopPoint > 0) {
       projectCarousel.scrollLeft = Math.max(loopPoint - getCardStep(), 0);
     }
 
     projectCarousel.scrollBy({
       left: getCardStep() * direction,
-      behavior: "smooth",
+      behavior: reducedMotion ? "auto" : "smooth",
     });
   };
 
   projectPrev?.addEventListener("click", () => scrollByProject(-1));
   projectNext?.addEventListener("click", () => scrollByProject(1));
+
+  if (reducedMotion) return;
+
+  projectCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.tabIndex = -1;
+    clone.querySelectorAll("a, button").forEach((element) => {
+      element.tabIndex = -1;
+    });
+    projectCarousel.appendChild(clone);
+    wireProjectCard(clone);
+    firstClone ??= clone;
+  });
+  projectCards = Array.from(projectCarousel.querySelectorAll(".project-card"));
+
+  projectCarousel.addEventListener("pointerdown", pauseBriefly);
+  projectCarousel.addEventListener("pointerup", pauseBriefly);
+
+  updateLoopPoint();
+  window.addEventListener("resize", updateLoopPoint);
 
   const move = (time) => {
     projectAnimationFrame = null;
@@ -335,7 +340,6 @@ const runProjectCarousel = () => {
 
 const runIntro = async () => {
   const introText = typewriter.dataset.text;
-
   if (reducedMotion) {
     typewriter.textContent = introText;
     intro.classList.add("intro--focus-ready", "intro--tagline-ready");
@@ -343,26 +347,20 @@ const runIntro = async () => {
   }
 
   typewriter.textContent = "";
-  for (let index = 0; index < introText.length; index += 1) {
-    typewriter.textContent += introText[index];
+  for (const character of introText) {
+    if (intro.classList.contains("is-hidden")) return;
+    typewriter.textContent += character;
     await wait(50);
-    if (intro.classList.contains("is-hidden")) {
-      return;
-    }
   }
 
+  await wait(200);
+  if (intro.classList.contains("is-hidden")) return;
   intro.classList.add("intro--focus-ready");
 
-  await wait(650);
-  if (intro.classList.contains("is-hidden")) {
-    return;
-  }
+  await wait(250);
+  if (intro.classList.contains("is-hidden")) return;
   intro.classList.add("intro--tagline-ready");
-
-  await wait(950);
-  if (!intro.classList.contains("is-hidden")) {
-    rotateFocus();
-  }
+  rotateFocus();
 };
 
 enterSite.addEventListener("click", revealPortfolio);

@@ -103,7 +103,6 @@ select,
 .button,
 .skill-pills,
 .cert-card__button,
-.project-card__front p,
 .project-actions,
 .footer {
   font-family: var(--font-heading);
@@ -391,12 +390,12 @@ select:focus-visible,
   display: block;
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 360ms ease, transform 360ms ease;
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
 .career-title span.is-changing {
   opacity: 0;
-  transform: translateX(-18px);
+  transform: translateY(6px);
 }
 
 .about-copy {
@@ -421,6 +420,7 @@ select:focus-visible,
   color: var(--accent);
   font: 600 0.8125rem/1.3 var(--font-heading);
   text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
 .section__heading {
@@ -441,6 +441,9 @@ select:focus-visible,
   margin: 16px 0 0;
   color: var(--ink);
   font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  max-width: 70ch;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .section__topline {
@@ -545,13 +548,6 @@ select:focus-visible,
   font: 600 0.75rem/1.3 var(--font-heading);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-.opportunity-modal__card h2 {
-  margin: 0 48px 22px 0;
-  color: var(--ink);
-  font-size: clamp(1.7rem, 7vw, 2.35rem);
-  line-height: 1;
 }
 
 .opportunity-modal__grid {
@@ -751,6 +747,7 @@ select:focus-visible,
     rgba(3, 3, 3, 0.19);
   font-size: 0.9375rem;
   font-weight: 600;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .skill-pills span:hover {
@@ -758,6 +755,7 @@ select:focus-visible,
   background:
     linear-gradient(135deg, rgba(232, 237, 242, 0.028), rgba(232, 237, 242, 0.007)),
     rgba(135, 206, 235, 0.055);
+  transform: translateY(-1px);
 }
 
 .skill-icon {
@@ -1032,9 +1030,12 @@ select:focus-visible,
     rgba(7, 7, 7, 0.5);
   object-fit: contain;
   flex-shrink: 0;
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 220ms ease;
 }
 
 .project-card h3 {
+  font-family: var(--font-heading);
   position: relative;
   z-index: 1;
   order: 2;
@@ -1046,6 +1047,7 @@ select:focus-visible,
 }
 
 .project-card p {
+  font-family: var(--font-body);
   position: relative;
   z-index: 1;
   margin: 12px 0 0;
@@ -1057,8 +1059,8 @@ select:focus-visible,
 .project-card__front p {
   order: 3;
   max-width: 100%;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
   font-style: italic;
 }
 
@@ -1213,15 +1215,18 @@ select:focus-visible,
   width: 76px;
   height: 76px;
   place-items: center;
-  border: 1px solid var(--glass-line);
+  border: 1px solid var(--accent);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
   border-radius: 12px;
-  background: #050505;
-  color: var(--ink);
+  background: var(--accent);
+  color: #001014;
 }
 
-.contact__icons a:hover {
+.contact__icons a:hover,
+.contact__icons a:focus-visible {
   transform: translateY(-4px);
+  background: #a7def3;
+  border-color: #a7def3;
 }
 
 .contact__icons img {
@@ -1254,7 +1259,7 @@ select:focus-visible,
   overflow: hidden;
   padding: clamp(18px, 4vw, 50px);
   background: #000;
-  transition: opacity 700ms ease, visibility 700ms ease;
+  transition: opacity 450ms ease, visibility 450ms ease;
 }
 
 .intro::before,
@@ -1349,33 +1354,39 @@ select:focus-visible,
   animation: terminalCursorBlink 900ms step-end infinite;
 }
 
+@keyframes terminalCursorBlink {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+
 .intro__focus,
 .intro__tagline {
-  transition: opacity 420ms ease, clip-path 520ms ease, transform 420ms ease;
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
 .intro__focus {
   position: relative;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: fit-content;
-  min-height: 0;
+  max-width: 100%;
+  min-height: 32px;
   justify-self: center;
-  margin: 16px auto 8px;
-  border: 0;
-  border-left: 2px solid var(--accent);
-  border-radius: 0;
-  padding: 8px 12px;
+  margin: 16px auto 12px;
+  border: 1px solid rgba(135, 206, 235, 0.45);
+  border-radius: 999px;
+  padding: 5px 14px;
   color: var(--accent);
-  background:
-    linear-gradient(90deg, rgba(135, 206, 235, 0.12), transparent 92%);
-  font: 600 0.875rem/1.45 var(--font-heading);
+  background: rgba(135, 206, 235, 0.1);
+  font: 600 0.875rem/1.4 var(--font-heading);
   letter-spacing: 0.02em;
   text-align: center;
 }
 
 .intro__focus.is-changing {
   opacity: 0;
-  transform: translateX(-14px);
+  transform: translateY(6px);
 }
 
 .intro__tagline {
@@ -1412,11 +1423,10 @@ select:focus-visible,
 
 .intro:not(.intro--focus-ready) .intro__focus {
   opacity: 0;
-  transform: translateX(-22px);
+  transform: translateY(6px);
 }
 
 .intro:not(.intro--tagline-ready) .intro__tagline {
-  clip-path: inset(0 100% 0 0);
   opacity: 0;
   transform: translateY(8px);
 }
@@ -1424,7 +1434,6 @@ select:focus-visible,
 .intro.intro--focus-ready .intro__focus,
 .intro.intro--tagline-ready .intro__tagline {
   visibility: visible;
-  clip-path: inset(0);
   opacity: 1;
   transform: translate(0);
 }
@@ -1482,18 +1491,6 @@ select:focus-visible,
 
   100% {
     transform: translate3d(6%, -2%, 0) scale(1.09);
-  }
-}
-
-@keyframes terminalCursorBlink {
-  0%,
-  48% {
-    opacity: 1;
-  }
-
-  49%,
-  100% {
-    opacity: 0;
   }
 }
 
@@ -1846,8 +1843,7 @@ select:focus-visible,
     height: 36px;
   }
 
-  .opportunity-modal__eyebrow,
-  .opportunity-modal__card h2 {
+  .opportunity-modal__eyebrow {
     margin-right: 42px;
   }
 
@@ -1926,17 +1922,6 @@ select:focus-visible,
   text-wrap: balance;
 }
 
-.section__heading p,
-.contact__content p:last-child {
-  max-width: 70ch;
-  line-height: 1.65;
-  text-wrap: pretty;
-}
-
-.section-kicker {
-  letter-spacing: 0.14em;
-}
-
 .nav,
 .intro__panel,
 .about-copy,
@@ -1963,19 +1948,6 @@ select:focus-visible,
 .contact__icons a {
   transition-duration: 220ms;
   transition-timing-function: cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-
-.skill-pills span {
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-}
-
-.skill-pills span:hover {
-  transform: translateY(-1px);
-}
-
-.project-gif {
-  filter: saturate(0.92) contrast(1.04);
-  transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 220ms ease;
 }
 
 .project-card:hover .project-gif,
