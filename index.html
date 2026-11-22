@@ -12,12 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260918-favicon" />
+    <link rel="stylesheet" href="styles.css?v=81937aefb332" />
   </head>
-  <body class="intro-active">
+  <body class="intro-active" id="top">
     <svg class="icon-sprite" aria-hidden="true" focusable="false">
       <symbol id="icon-siren" viewBox="0 0 24 24">
         <path d="M7 18h10" />
@@ -186,25 +186,27 @@
       <button class="intro__enter" id="enterSite" type="button">Enter Portfolio</button>
     </div>
 
-    <header class="site-header" id="top">
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="nav__brand" href="index.html" aria-label="Reload Cyristal N. Joseph portfolio">Cyristal N. Joseph</a>
-        <div class="nav__links">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#skills">Skills</a>
-          <a href="#certifications">Certifications</a>
-          <a href="#projects">Projects</a>
-          <a href="#publications">Publications</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
-    </header>
+    <div class="site-chrome">
+      <header class="site-header">
+        <nav class="nav" aria-label="Primary navigation">
+          <a class="nav__brand" href="#top" aria-label="Back to top">Cyristal N. Joseph</a>
+          <div class="nav__links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#projects">Projects</a>
+            <a href="#publications">Publications</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+      </header>
 
-    <div class="ticker" aria-label="Portfolio focus areas">
-      <div class="ticker__track">
-        <span>Cyber Defense + Incident Response &bull; Risk Governance + Assurance &bull; Privacy Operations + Data Protection &bull; Threat Intelligence + Legal Strategy</span>
-        <span aria-hidden="true">Cyber Defense + Incident Response &bull; Risk Governance + Assurance &bull; Privacy Operations + Data Protection &bull; Threat Intelligence + Legal Strategy</span>
+      <div class="ticker" aria-label="Portfolio focus areas">
+        <div class="ticker__track">
+          <span>Cyber Defense + Incident Response &bull; Risk Governance + Assurance &bull; Privacy Operations + Data Protection &bull; Threat Intelligence + Legal Strategy</span>
+          <span aria-hidden="true">Cyber Defense + Incident Response &bull; Risk Governance + Assurance &bull; Privacy Operations + Data Protection &bull; Threat Intelligence + Legal Strategy</span>
+        </div>
       </div>
     </div>
 
@@ -491,7 +493,7 @@
             <p>Process improvement, root cause analysis, metrics, and operational quality.</p>
           </a>
           <a
-            class="cert-card cert-card--credly"
+            class="cert-card"
             href="https://www.credly.com/badges/2723cacf-83e6-43e8-9ab6-52fab67edb9e/public_url"
             target="_blank"
             rel="noreferrer"
@@ -503,7 +505,7 @@
             <p>Foundational IT fluency across infrastructure, software, security, and databases.</p>
           </a>
           <a
-            class="cert-card cert-card--credly"
+            class="cert-card"
             href="https://www.credly.com/badges/8e86e6d4-7682-4b03-b01f-afe73ca6b4c2/public_url"
             target="_blank"
             rel="noreferrer"
@@ -515,7 +517,7 @@
             <p>Endpoint support, hardware, software, networking, and technical troubleshooting.</p>
           </a>
           <a
-            class="cert-card cert-card--credly"
+            class="cert-card"
             href="https://www.credly.com/badges/b3683b34-c835-444f-b156-e77ef028808b/public_url"
             target="_blank"
             rel="noreferrer"
@@ -527,7 +529,7 @@
             <p>Security principles, monitoring, incident response, architecture, and risk management.</p>
           </a>
           <a
-            class="cert-card cert-card--credly"
+            class="cert-card"
             href="https://www.credly.com/badges/b2c39d79-cda3-49c7-9949-3cd0e8b94918/public_url"
             target="_blank"
             rel="noreferrer"
@@ -858,6 +860,6 @@
       </section>
     </div>
 
-    <script src="script.js?v=8d5ccfddc1f2"></script>
+    <script src="script.js?v=b87330cf477d"></script>
   </body>
 </html>

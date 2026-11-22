@@ -463,6 +463,59 @@ const setupScrollReveals = () => {
   elements.forEach((element) => revealObserver.observe(element));
 };
 
+const setupNavigation = () => {
+  const header = document.querySelector(".site-chrome");
+  const links = Array.from(document.querySelectorAll('.nav__links a[href^="#"]'));
+  const sections = links.map((link) => document.querySelector(link.hash));
+  let activeLink = null;
+  let headerHeight = 0;
+  let framePending = false;
+
+  const updateActiveSection = () => {
+    framePending = false;
+    let index = 0;
+
+    sections.forEach((section, sectionIndex) => {
+      if (section.getBoundingClientRect().top <= headerHeight + 24) {
+        index = sectionIndex;
+      }
+    });
+
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+
+    const nextLink = links[index];
+    if (nextLink !== activeLink) {
+      activeLink?.removeAttribute("aria-current");
+      nextLink.setAttribute("aria-current", "location");
+      activeLink = nextLink;
+    }
+  };
+
+  const scheduleUpdate = () => {
+    if (!framePending) {
+      framePending = true;
+      window.requestAnimationFrame(updateActiveSection);
+    }
+  };
+
+  const measureHeader = () => {
+    headerHeight = header.getBoundingClientRect().height;
+    document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
+    scheduleUpdate();
+  };
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(measureHeader).observe(header);
+  }
+
+  window.addEventListener("resize", measureHeader);
+  window.addEventListener("scroll", scheduleUpdate, { passive: true });
+  measureHeader();
+};
+
+setupNavigation();
 runIntro();
 rotateCareer();
 runProjectCarousel();
