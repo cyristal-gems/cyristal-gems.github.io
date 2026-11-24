@@ -6,7 +6,7 @@ This portfolio brings together my work and interests in technology, investigatio
 
 ## **✨ Key Features**
 
-- **Experience & Resume:** Presents organizations I’ve worked with alongside a downloadable resume.
+- **Experience & Resume:** Presents organizations I have worked with alongside a downloadable resume.
 - **Skills by Specialty:** Organizes capabilities into Technology & Investigations; Law, Privacy & Governance; and Systems, Data & Automation.
 - **Filterable Credentials:** Lets visitors browse certifications by category and open supporting certificates or badge pages.
 - **Selected Project Showcase:** Combines GIF previews, technology lists, and flip-card summaries with repository and live-project links in a scrolling carousel.
